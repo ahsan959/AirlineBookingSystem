@@ -14,7 +14,7 @@ class CityRepository {
     }
   }
 
-  async DeleteCity(cityId) {
+  async deleteCity(cityId) {
     try {
       await City.destory({
         where: {
@@ -23,6 +23,32 @@ class CityRepository {
       });
     } catch (err) {
       throw { err };
+    }
+  }
+
+  // For updating First Tell what do you want to update
+
+  async updateCity(cityId, data) {
+    try {
+      const city = await City.update(data, {
+        where: {
+          id: cityId,
+        },
+      });
+      return city;
+    } catch (error) {
+      console.log("SomeThing went Wrong Please Try Again");
+      throw { err };
+    }
+  }
+
+  async getCity(cityId) {
+    try {
+      const city = await City.findByPk(cityId);
+      return city;
+    } catch (error) {
+      console.log("something went wrong in the Repository Layer ");
+      throw { error };
     }
   }
 }
