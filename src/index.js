@@ -5,6 +5,8 @@ const { urlencoded } = require("body-parser");
 const { City } = require("./models/index");
 const CityRepository = require("./repository/city_repository");
 
+const ApiRoutes = require("./Routes/index");
+
 const StartServer = async () => {
   // create Express Object
   const app = express();
@@ -12,6 +14,7 @@ const StartServer = async () => {
   app.use(body_parser.json());
   app.use(body_parser.urlencoded({ extended: true }));
 
+  app.use("/api", ApiRoutes);
   // start the server
   app.listen(port, () => {
     console.log(`Server started on Port:${port}`);
