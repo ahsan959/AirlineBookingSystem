@@ -43,12 +43,14 @@ class CityService {
     }
   }
 
-  async getAllCity() {
+  async getAllCity(filter) {
     try {
-      const city = await this.cityRepository.getAllCity();
-      return city;
+      const cities = await this.cityRepository.getAllCity({
+        name: filter.name,
+      });
+      return cities;
     } catch (error) {
-      console.log("Something went wrong in Service Layer");
+      console.log("Something went wrong at service layer");
       throw { error };
     }
   }

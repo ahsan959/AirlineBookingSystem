@@ -2,6 +2,7 @@
 // Models we have Only Destructure the Models
 
 const { City } = require("../models/index");
+const { Op } = require("sequelize");
 
 class CityRepository {
   // we are Sending the Object and Destructure that Object
@@ -76,12 +77,23 @@ class CityRepository {
     }
   }
 
-  async getAllCity() {
+  async getAllCity(filter) {
+    // filter can be empty also
     try {
+      if (filter.name) {
+        const cities = await City.findAll({
+          where: {
+            name: {
+              [Op.startsWith]: filter.name,
+            },
+          },
+        });
+        return cities;
+      }
       const cities = await City.findAll();
       return cities;
     } catch (error) {
-      console.log("Somethings went wrong in Service Layer");
+      console.log("Something went wrong in the repository layer");
       throw { error };
     }
   }
