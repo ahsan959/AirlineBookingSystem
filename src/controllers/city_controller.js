@@ -30,19 +30,19 @@ const create = async (req, res) => {
 // URL->/CITY/:id
 const destory = async (req, res) => {
   try {
-    const response = await cityService.deleteCity(req.param.id);
+    const response = await cityService.deleteCity(req.params.id);
     return res.status(200).json({
       data: response,
       success: true,
-      message: "Successfully deleted a City",
+      message: "Successfully deleted a city",
       err: {},
     });
   } catch (error) {
-    console.log("Somethings went wrong in Controoler Layer 2");
+    console.log(error);
     return res.status(500).json({
       data: {},
       success: false,
-      message: "Not able to delete the City",
+      message: "Not able to delete the city",
       err: error,
     });
   }
@@ -52,46 +52,67 @@ const destory = async (req, res) => {
 // GET->/city/:id
 const get = async (req, res) => {
   try {
-    const response = await cityService.getCity(req.param.id);
+    const response = await cityService.getCity(req.params.id);
     return res.status(200).json({
       data: response,
       success: true,
-      message: "Successfully get a City",
+      message: "Successfully fetched a city",
       err: {},
     });
   } catch (error) {
-    console.log("Somethings went wrong in Controoler Layer 3");
+    console.log(error);
     return res.status(500).json({
-      success: false,
       data: {},
-      message: "we are not able to get the City",
+      success: false,
+      message: "Not able to get the city",
       err: error,
     });
   }
 };
+// Patch -> /city/:id -> req.body
 const update = async (req, res) => {
   try {
-    const response = await CityService.getCity(req.param.id, req.body);
+    const response = await cityService.updateCity(req.params.id, req.body);
     return res.status(200).json({
-      success: true,
       data: response,
+      success: true,
+      message: "Successfully fetched a city",
       err: {},
-      message: "Succesfully get the City",
     });
   } catch (error) {
-    console.log("Somethings went wrong in Controoler Layer 4");
+    console.log(error);
     return res.status(500).json({
-      success: false,
       data: {},
+      success: false,
+      message: "Not able to update the city",
       err: error,
-      message: "we are not able to update the city",
     });
   }
 };
 
+const getAllCity = async (req, res) => {
+  try {
+    const city = await cityService.getAllCity();
+    return res.status(200).json({
+      data: city,
+      success: true,
+      message: "Successfully fetched a cities",
+      err: {},
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      data: {},
+      success: false,
+      message: "Something went wrong",
+      err: error,
+    });
+  }
+};
 module.exports = {
   create,
   destory,
   get,
   update,
+  getAllCity,
 };
