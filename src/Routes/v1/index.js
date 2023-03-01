@@ -9,6 +9,7 @@ router.delete("/city/:id", cityController.destory);
 router.get("/city/:id", cityController.get);
 router.patch("/city/:id", cityController.update);
 router.get("/city", cityController.getAllCity);
+router.get("/flights", flightController.getAllFlight);
 
-router.post("/flight", flightController.create);
+router.post("/flights", flightController.create);
 module.exports = router;
